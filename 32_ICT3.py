@@ -5,7 +5,7 @@ import numpy as np
 # Custom Exception
 # --------------------------
 class LowSalaryException(Exception):
-    def __init__(self, message="❌ Salary is too low. Showroom services not available."):
+    def __init__(self, message="Salary is too low. Showroom services not available."):
         super().__init__(message)
 
 
@@ -46,23 +46,23 @@ class Showroom:
     def buy_car(self, car: Car):
         car_data = car.get_details()
         self.inventory = pd.concat([self.inventory, pd.DataFrame([car_data])], ignore_index=True)
-        print(f"✅ {car.brand} {car.model} added to inventory.")
+        print(f" {car.brand} {car.model} added to inventory.")
 
     # View all cars
     def view_cars(self):
         if self.inventory.empty:
-            print("❌ No cars available in the showroom.")
+            print(" No cars available in the showroom.")
         else:
-            print("\n🚗 Cars Available in Showroom:")
+            print("\n Cars Available in Showroom:")
             print(self.inventory.to_string(index=False))
 
     # Display car details by ID
     def display_car(self, car_id):
         car = self.inventory[self.inventory["ID"] == car_id]
         if car.empty:
-            print("❌ Car not found.")
+            print("Car not found.")
         else:
-            print("\n📌 Car Details:")
+            print("\n Car Details:")
             print(car.to_string(index=False))
 
     # Sell car (remove from inventory)
@@ -70,9 +70,9 @@ class Showroom:
         if car_id in self.inventory["ID"].values:
             car = self.inventory[self.inventory["ID"] == car_id]
             self.inventory = self.inventory[self.inventory["ID"] != car_id]
-            print(f"✅ Sold Car: {car['Brand'].values[0]} {car['Model'].values[0]} (ID: {car_id})")
+            print(f" Sold Car: {car['Brand'].values[0]} {car['Model'].values[0]} (ID: {car_id})")
         else:
-            print("❌ Car not found, cannot sell.")
+            print(" Car not found, cannot sell.")
 
 
 # --------------------------
@@ -126,12 +126,12 @@ if __name__ == "__main__":
                 new_car = Car(brand, model, year, price, fuel, color)
                 showroom.buy_car(new_car)
             elif choice == "5":
-                print("👋 Exiting Showroom System. Goodbye!")
+                print("Exiting Showroom System. Goodbye!")
                 break
             else:
-                print("❌ Invalid choice, please try again.")
+                print("Invalid choice, please try again.")
 
     except LowSalaryException as e:
         print(e)
     except ValueError:
-        print("❌ Invalid input! Please enter numeric values where required.")
+        print("Invalid input! Please enter numeric values where required.")
